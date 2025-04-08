@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Register</title>
     <link
       href="../static/css/register.css"
       rel="stylesheet"
@@ -15,21 +15,23 @@
     />
   </head>
   <body>
+
     <div class="wrapper">
-      <form action="">
+      <form action="" method="POST">
         <h1>Register</h1>
+
         <div class="input_box">
-          <input type="text" placeholder="Username" required />
+          <input type="text" placeholder="Username" name="username" required />
           <i class="bx bxs-user"></i>
         </div>
 
         <div class="input_box">
-          <input type="password" placeholder="Password" required />
+          <input type="password" placeholder="Password" name="password" required />
           <i class="bx bxs-lock-alt"></i>
         </div>
 
         <div class="input_box">
-          <input type="password" placeholder="Confirm Password" required />
+          <input type="password" placeholder="Confirm Password" name="confirmPassword" required />
           <i class="bx bxs-lock-alt"></i>
         </div>
 
@@ -37,8 +39,12 @@
             <button type="submit" class="submit_button">Register</button>
             <a class="sign_in_button" href="./login.html">Sign In</a>
         </div>
-        
       </form>
+      <div class="error">
+        {% for mesg in get_flashed_messages() %}
+          <h1>{{ mesg }}</h1>
+        {% endfor %}
+      </div>
     </div>
   </body>
 </html>

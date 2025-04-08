@@ -99,3 +99,8 @@ body {
     align-items: center;
     text-decoration: none;
 }
+
+.error {
+    color:red;
+    font-size: 12px;
+}
