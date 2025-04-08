@@ -43,5 +43,25 @@ def login():
         
     return render_template('login.html')
 
+@app.route('/forgotPassword.html', methods=['GET','POST'])
+def forgotPassword():
+    if request.method == 'POST':
+        username = request.form['username']
+        newPassword = request.form['password']
+        confirmNewPassword = request.form['confirmPassword']
+        
+        if username not in userDatabase.keys():
+            flash("Username Not Found", category="error")
+            return redirect('/forgotPassword.html')
+        
+        if newPassword != confirmNewPassword:
+            flash("New Passwords Must Match", category="error")
+            return redirect('/forgotPassword.html')
+        
+        userDatabase[username] = newPassword
+        return redirect('login.html')
+    else:
+        return render_template('/forgotPassword.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
