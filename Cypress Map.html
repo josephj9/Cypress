@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+        <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+        <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        #folium_map {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+        .leaflet-container { font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="folium-map" id="folium_map" ></div>    
+</body>
+<script>
+    var folium_map = L.map(
+        "folium_map",
+        {
+            center: [43.65633996649748, -79.38090920448305],
+            crs: L.CRS.EPSG3857,
+            ...{
+                "maxBounds": [[44, -80,], [43.5, -79,],],
+                "zoom": 15,
+                "zoomControl": true,
+                "preferCanvas": false,
+            }
+        }
+    );
+    var tile_layer = L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        {
+            "minZoom": 0,
+            "maxZoom": 20,
+            "maxNativeZoom": 20,
+            "noWrap": false,
+            "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+            "subdomains": "abcd",
+            "detectRetina": false,
+            "tms": false,
+            "opacity": 1,
+        }
+    );
+    tile_layer.addTo(folium_map);
+    var fg_Active_Attacker = L.featureGroup({});
+    var Marker_Active_Attacker = L.marker([43.656, -79.380909], {}).addTo(fg_Active_Attacker);
+    var fg_Active_Attacker_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "orange",
+            "iconColor": "white",
+            "icon": "person",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Active_Attacker_popup = L.popup({"maxWidth": 250,});
+    var fg_Active_Attacker_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+QWN0aXZlIEF0dGFja2VyPC9oMj4KICAgICAgICA8cD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LAogICAgICAgIHNlZCBkbyBlaXVzbW9kIHRlbXBvciBpbmNpZGlkdW50IHV0IGxhYm9yZSBldCBkb2xvcmUgbWFnbmEgYWxpcXVhLgogICAgICAgIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0aW9uIHVsbGFtY28KICAgICAgICBsYWJvcmlzIG5pc2kgdXQgYWxpcXVpcCBleCBlYSBjb21tb2RvIGNvbnNlcXVhdC48L3A+CiAgICA=" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Active_Attacker_popup.setContent(fg_Active_Attacker_iframe);
+    Marker_Active_Attacker.bindPopup(fg_Active_Attacker_popup);
+    Marker_Active_Attacker.setIcon(fg_Active_Attacker_icon);
+    fg_Active_Attacker.addTo(folium_map);
+    var fg_Bomb_Threat = L.featureGroup({});
+    var Marker_Bomb_Threat = L.marker([43.656339, -79.380909], {}).addTo(fg_Bomb_Threat);
+    var fg_Bomb_Threat_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "black",
+            "iconColor": "white",
+            "icon": "triangle-exclamation",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Bomb_Threat_popup = L.popup({"maxWidth": 250,});
+    var fg_Bomb_Threat_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+Qm9tYiBUaHJlYXQ8L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Bomb_Threat_popup.setContent(fg_Bomb_Threat_iframe);
+    Marker_Bomb_Threat.bindPopup(fg_Bomb_Threat_popup);
+    Marker_Bomb_Threat.setIcon(fg_Bomb_Threat_icon);
+    fg_Bomb_Threat.addTo(folium_map);
+    var fg_Fire_Explosion = L.featureGroup({});
+    var Marker_Fire_Explosion = L.marker([43.656339, -79.38], {}).addTo(fg_Fire_Explosion);
+    var fg_Fire_Explosion_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "red",
+            "iconColor": "white",
+            "icon": "glyphicon glyphicon-fire",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Fire_Explosion_popup = L.popup({"maxWidth": 250,});
+    var fg_Fire_Explosion_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+RmlyZSBvciBFeHBsb3Npb248L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Fire_Explosion_popup.setContent(fg_Fire_Explosion_iframe);
+    Marker_Fire_Explosion.bindPopup(fg_Fire_Explosion_popup);
+    Marker_Fire_Explosion.setIcon(fg_Fire_Explosion_icon);
+    fg_Fire_Explosion.addTo(folium_map);
+    var fg_Medical = L.featureGroup({});
+    var Marker_Medical = L.marker([43.655, -79.381909], {}).addTo(fg_Medical);
+    var fg_Medical_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "green",
+            "iconColor": "white",
+            "icon": "glyphicon glyphicon-plus",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Medical_popup = L.popup({"maxWidth": 250,});
+    var fg_Medical_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+TWVkaWNhbCBFbWVyZ2VuY3k8L2gxPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Medical_popup.setContent(fg_Medical_iframe);
+    Marker_Medical.bindPopup(fg_Medical_popup);
+    Marker_Medical.setIcon(fg_Medical_icon);
+    fg_Medical.addTo(folium_map);
+    var fg_Natural_Hazard = L.featureGroup({});
+    var Marker_Natural_Hazard = L.marker([43.655339, -79.381909], {}).addTo(fg_Natural_Hazard);
+    var fg_Natural_Hazard_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "darkgreen",
+            "iconColor": "white",
+            "icon": "bolt",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Natural_Hazard_popup = L.popup({"maxWidth": 250,});
+    var fg_Natural_Hazard_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+TmF0dXJhbCBIYXphcmQ8L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Natural_Hazard_popup.setContent(fg_Natural_Hazard_iframe);
+    Marker_Natural_Hazard.bindPopup(fg_Natural_Hazard_popup);
+    Marker_Natural_Hazard.setIcon(fg_Natural_Hazard_icon);
+    fg_Natural_Hazard.addTo(folium_map);
+    var fg_Suspicious_Package = L.featureGroup({});
+    var Marker_Suspicious_Package = L.marker([43.655339, -79.381], {}).addTo(fg_Suspicious_Package);
+    var fg_Suspicious_Package_icon = L.AwesomeMarkers.icon(
+        {
+            "markerColor": "blue",
+            "iconColor": "white",
+            "icon": "glyphicon glyphicon-briefcase",
+            "prefix": "fa",
+            "extraClasses": "fa-rotate-0",
+        }
+    );
+    var fg_Suspicious_Package_popup = L.popup({"maxWidth": 250,});
+    var fg_Suspicious_Package_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+U3VzcGljaW91cyBQYWNrYWdlPC9oMj4KICAgICAgICA8cD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LAogICAgICAgIHNlZCBkbyBlaXVzbW9kIHRlbXBvciBpbmNpZGlkdW50IHV0IGxhYm9yZSBldCBkb2xvcmUgbWFnbmEgYWxpcXVhLgogICAgICAgIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0aW9uIHVsbGFtY28KICAgICAgICBsYWJvcmlzIG5pc2kgdXQgYWxpcXVpcCBleCBlYSBjb21tb2RvIGNvbnNlcXVhdC48L3A+CiAgICA=" width="250" style="border:none !important;" height="150"></iframe>`)[0];
+    fg_Suspicious_Package_popup.setContent(fg_Suspicious_Package_iframe);
+    Marker_Suspicious_Package.bindPopup(fg_Suspicious_Package_popup);
+    Marker_Suspicious_Package.setIcon(fg_Suspicious_Package_icon);
+    fg_Suspicious_Package.addTo(folium_map);
+    var layer_control_layers = {
+        base_layers : {
+            "" : tile_layer,
+        },
+        overlays :  {
+            "Active Attacker" : fg_Active_Attacker,
+            "Bomb Threat" : fg_Bomb_Threat,
+            "Fire or Explosion" : fg_Fire_Explosion,
+            "Medical Emergency" : fg_Medical,
+            "Natural Hazard" : fg_Natural_Hazard,
+            "Suspicious Package" : fg_Suspicious_Package,
+        },
+    };
+    let layer_control = L.control.layers(
+        layer_control_layers.base_layers,
+        layer_control_layers.overlays,
+        {
+            "position": "topright",
+            "collapsed": true,
+            "autoZIndex": true,
+        }
+    ).addTo(folium_map);
+    var lat_lng_popup = L.popup();
+    var lat;
+    var lng;
+    var type;
+    function latLngPop(e) {
+        lat = e.latlng.lat;
+        lng = e.latlng.lng;
+        type = 1
+        lat_lng_popup
+            .setLatLng(e.latlng)
+            .setContent(`
+                <form id="Report Form" action="javascript:createMarker()">
+                    <p>Type</p>
+                    <input type="radio" id="Active Attacker" name="Type" value="Active Attacker" onclick="Active_Attacker()" checked />
+                    <label for="Active Attacker">Active Attacker</label><br>
+                    <input type="radio" id="Bomb Threat" name="Type" value="Bomb Threat" onclick="Bomb_Threat()" />
+                    <label for="Bomb Threat">Bomb Threat</label><br>
+                    <input type="radio" id="Fire or Explosion" name="Type" value="Fire or Explosion" onclick="Fire_Explosion()" />
+                    <label for="Fire or Explosion">Fire or Explosion</label><br>
+                    <input type="radio" id="Medical Emergency" name="Type" value="Medical Emergency" onclick="Medical()" />
+                    <label for="Medical Emergency">Medical Emergency</label><br>
+                    <input type="radio" id="Natural Hazard" name="Type" value="Natural Hazard" onclick="Natural_Hazard()" />
+                    <label for="Natural Hazard">Natural Hazard</label><br>
+                    <input type="radio" id="Suspicious Package" name="Type" value="Suspicious Package" onclick="Suspicious_Package()" />
+                    <label for="Suspicious Package">Suspicious Package</label><br>
+                    <input type="submit" value="Create Report"">
+                </form>
+            `)
+            .openOn(folium_map);
+
+        console.log("Latitude: " + e.latlng.lat.toFixed(4));
+        console.log("Longitude: " + e.latlng.lng.toFixed(4));   
+    }
+    function Active_Attacker() {
+        type = 1;
+    }
+    function Bomb_Threat() {
+        type = 2;
+    }
+    function Fire_Explosion() {
+        type = 3;
+    }
+    function Medical() {
+        type = 4;
+    }
+    function Natural_Hazard() {
+        type = 5;
+    }
+    function Suspicious_Package() {
+        type = 6;
+    }
+    function createMarker() {
+        console.log("Cords: " + lat + ", " + lng);
+        if (type == 1) {
+            L.marker([lat, lng], {}).bindPopup(fg_Active_Attacker_popup).setIcon(fg_Active_Attacker_icon).addTo(fg_Active_Attacker);
+        } else if (type == 2) {
+            L.marker([lat, lng], {}).bindPopup(fg_Bomb_Threat_popup).setIcon(fg_Bomb_Threat_icon).addTo(fg_Bomb_Threat);
+        } else if (type == 3) {
+            L.marker([lat, lng], {}).bindPopup(fg_Fire_Explosion_popup).setIcon(fg_Fire_Explosion_icon).addTo(fg_Fire_Explosion);
+        } else if (type == 4) {
+            L.marker([lat, lng], {}).bindPopup(fg_Medical_popup).setIcon(fg_Medical_icon).addTo(fg_Medical);
+        } else if (type == 5) {
+            L.marker([lat, lng], {}).bindPopup(fg_Natural_Hazard_popup).setIcon(fg_Natural_Hazard_icon).addTo(fg_Natural_Hazard);
+        } else if (type == 6) {
+            L.marker([lat, lng], {}).bindPopup(fg_Suspicious_Package_popup).setIcon(fg_Suspicious_Package_icon).addTo(fg_Suspicious_Package);
+        }
+    }
+    folium_map.on('click', latLngPop);
+</script>
+</html>
