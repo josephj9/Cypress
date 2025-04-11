@@ -81,7 +81,7 @@ def map():
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
-    data['timestamp'] = datetime.now().isoformat()
+    print(f"[{data.get('timestamp')}] {data.get('type')} at ({data.get('lat')}, {data.get('lng')}): {data.get('notes')}")
 
     # Append the data as a JSON line to the text file
     with open('reports.txt', 'a') as f:

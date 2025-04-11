@@ -216,6 +216,7 @@
     var lat;
     var lng;
     var type;
+    const timestamp = new Date().toLocaleString();
     function latLngPop(e) {
         lat = e.latlng.lat;
         lng = e.latlng.lng;
@@ -239,7 +240,7 @@
                     <label for="Suspicious Package">Suspicious Package</label><br>
                     <label for="notes"><strong>Additional Notes:</strong></label><br>
                     <textarea id="notes" name="notes" rows="3" cols="30" placeholder="Add a description..."></textarea><br><br>
-                    <input type="submit" value="Create Report"">
+                    <input type="submit" value="Create Report">
                 </form>
             `)
             .openOn(folium_map);
@@ -269,7 +270,12 @@
 
         const selectedType = document.querySelector('input[name="Type"]:checked').value;
         const notes = document.getElementById('notes').value;
-        const popupContent = `<h4>${selectedType}</h4><p>${notes}</p>`;
+        const popupContent = `
+        <h4>${selectedType}</h4>
+        <p>${notes}</p>
+        <p><em>${timestamp}</em></p>
+        `;
+        
 
         let icon;
         let layer;
@@ -297,6 +303,9 @@
         .bindPopup(popupContent)
         .addTo(layer);
 
+        marker.openPopup();
+
+
         fetch('/submit', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -304,10 +313,12 @@
                     type: selectedType,
                     notes: notes,
                     lat: lat,
-                    lng: lng
+                    lng: lng,
+                    timestamp: timestamp
                 })
             });
     }
+
     folium_map.on('click', latLngPop);
 </script>
 </html>
