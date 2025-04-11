@@ -1,7 +1,7 @@
 # Cypress
 
 ## Installation
-This project was built using python, html, css, flask, JavaScript and Google Folium. Please make sure those are installed on your computer.
+This project was built using Python, HTML, CSS, Flask, JavaScript and Google Folium. Please make sure those are installed on your computer.
 
 To clone the repository,
 
