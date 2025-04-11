@@ -28,10 +28,36 @@
             top: 0.0%;
         }
         .leaflet-container { font-size: 1rem; }
+
+        #button-container {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+    
+        .log_out {
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    
+        .log_out:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
-    <div class="folium-map" id="folium_map" ></div>    
+    <div id="button-container">
+        <form action="" method="POST">
+            <button type="submit" class="log_out">Log Out</button>
+        </form>  
+    </div>
+    <div class="folium-map" id="folium_map" ></div>   
 </body>
 <script>
     var folium_map = L.map(

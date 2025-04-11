@@ -21,7 +21,7 @@ def register():
             return redirect('/')
         
         userDatabase[username] = password
-        return render_template('map.html')
+        return redirect('map.html')
     else:
         return render_template('register.html')
 
@@ -43,7 +43,7 @@ def login():
             flash("Password is Incorrect")
             return redirect('/login.html')
         
-        return render_template('map.html')
+        return redirect('map.html')
         
     return render_template('login.html')
 
@@ -66,6 +66,13 @@ def forgotPassword():
         return redirect('login.html')
     else:
         return render_template('/forgotPassword.html')
+    
+@app.route('/map.html', methods = ['POST','GET'])
+def map():
+    if request.method == 'POST':
+        return redirect('/login.html')
+    else:
+        return render_template('/map.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
