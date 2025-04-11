@@ -23,7 +23,7 @@ def register():
             return redirect('/')
         
         userDatabase[username] = password
-        return redirect('userMap.html')
+        return redirect('/userMap.html')
     else:
         return render_template('register.html')
 
@@ -73,7 +73,7 @@ def map():
     if request.method == 'POST':
         return redirect('/login.html')
     else:
-        return render_template('/map.html')
+        return render_template('/userMap.html')
     
 
 
