@@ -23,7 +23,7 @@ def register():
             return redirect('/')
         
         userDatabase[username] = password
-        return redirect('map.html')
+        return redirect('userMap.html')
     else:
         return render_template('register.html')
 
@@ -34,8 +34,7 @@ def login():
         password = request.form['password']
         
         if username == "admin123" and password == "admin123":
-            return "ADMIN"
-            # return redirect()
+            return redirect('/admin.html')  
         
         if username not in userDatabase.keys():
             flash("Username not Found")
@@ -45,7 +44,7 @@ def login():
             flash("Password is Incorrect")
             return redirect('/login.html')
         
-        return redirect('map.html')
+        return redirect('userMap.html')
         
     return render_template('login.html')
 
@@ -69,7 +68,7 @@ def forgotPassword():
     else:
         return render_template('/forgotPassword.html')
     
-@app.route('/map.html', methods = ['POST','GET'])
+@app.route('/userMap.html', methods = ['POST','GET'])
 def map():
     if request.method == 'POST':
         return redirect('/login.html')
@@ -88,6 +87,13 @@ def submit():
         f.write(json.dumps(data) + '\n')
 
     return jsonify({"message": "Report Saved "}), 200
+    
+@app.route('/admin.html', methods = ['POST','GET'])
+def admin():
+    if request.method == 'POST':
+        return redirect('/login.html')
+    else:
+        return render_template('/admin.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
