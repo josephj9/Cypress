@@ -21,7 +21,7 @@ def register():
             return redirect('/')
         
         userDatabase[username] = password
-        return "DONE"
+        return render_template('map.html')
     else:
         return render_template('register.html')
 
@@ -43,7 +43,7 @@ def login():
             flash("Password is Incorrect")
             return redirect('/login.html')
         
-        return "DONE"
+        return render_template('map.html')
         
     return render_template('login.html')
 
