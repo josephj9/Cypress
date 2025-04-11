@@ -32,8 +32,7 @@ def login():
         password = request.form['password']
         
         if username == "admin123" and password == "admin123":
-            return "ADMIN"
-            # return redirect()
+            return render_template('/admin.html')  
         
         if username not in userDatabase.keys():
             flash("Username not Found")
