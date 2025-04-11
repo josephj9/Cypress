@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
+import json
+from datetime import datetime
 
 userDatabase = {"username123": "password123"}
 
@@ -73,6 +75,17 @@ def map():
         return redirect('/login.html')
     else:
         return render_template('/map.html')
+    
+
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.get_json()
+    data['timestamp'] = datetime.now().isoformat()
+
+    # Append the data as a JSON line to the text file
+    with open('reports.txt', 'a') as f:
+        f.write(json.dumps(data) + '\n')
 
 if __name__ == "__main__":
     app.run(debug=True)

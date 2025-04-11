@@ -211,13 +211,18 @@
                     <label for="Natural Hazard">Natural Hazard</label><br>
                     <input type="radio" id="Suspicious Package" name="Type" value="Suspicious Package" onclick="Suspicious_Package()" />
                     <label for="Suspicious Package">Suspicious Package</label><br>
+                    <label for="notes"><strong>Additional Notes:</strong></label><br>
+                    <textarea id="notes" name="notes" rows="3" cols="30" placeholder="Add a description..."></textarea><br><br>
                     <input type="submit" value="Create Report"">
                 </form>
             `)
             .openOn(folium_map);
 
+
+
         console.log("Latitude: " + e.latlng.lat.toFixed(4));
-        console.log("Longitude: " + e.latlng.lng.toFixed(4));   
+        console.log("Longitude: " + e.latlng.lng.toFixed(4));
+        console.log("Incident Info: ", notes);   
     }
     function Active_Attacker() {
         type = 1;
@@ -252,6 +257,18 @@
         } else if (type == 6) {
             L.marker([lat, lng], {}).bindPopup(fg_Suspicious_Package_popup).setIcon(fg_Suspicious_Package_icon).addTo(fg_Suspicious_Package);
         }
+
+
+        fetch('/submit', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    type: selectedType,
+                    notes: notes,
+                    lat: lat,
+                    lng: lng
+                })
+            });
     }
     folium_map.on('click', latLngPop);
 </script>
