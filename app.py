@@ -76,10 +76,11 @@ def map():
         return render_template('/userMap.html')
     
 
-
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.get_json()
+    report_id = get_next_report_id()
+    data['report_id'] = report_id
     print(f"[{data.get('timestamp')}] {data.get('type')} at ({data.get('lat')}, {data.get('lng')}): {data.get('notes')}")
 
     # Append the data as a JSON line to the text file
