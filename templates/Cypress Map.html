@@ -63,7 +63,7 @@
     );
     tile_layer.addTo(folium_map);
     var fg_Active_Attacker = L.featureGroup({});
-    var Marker_Active_Attacker = L.marker([43.656, -79.380909], {}).addTo(fg_Active_Attacker);
+    // var Marker_Active_Attacker = L.marker([43.656, -79.380909], {}).addTo(fg_Active_Attacker);
     var fg_Active_Attacker_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "orange",
@@ -76,11 +76,11 @@
     var fg_Active_Attacker_popup = L.popup({"maxWidth": 250,});
     var fg_Active_Attacker_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+QWN0aXZlIEF0dGFja2VyPC9oMj4KICAgICAgICA8cD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LAogICAgICAgIHNlZCBkbyBlaXVzbW9kIHRlbXBvciBpbmNpZGlkdW50IHV0IGxhYm9yZSBldCBkb2xvcmUgbWFnbmEgYWxpcXVhLgogICAgICAgIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0aW9uIHVsbGFtY28KICAgICAgICBsYWJvcmlzIG5pc2kgdXQgYWxpcXVpcCBleCBlYSBjb21tb2RvIGNvbnNlcXVhdC48L3A+CiAgICA=" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Active_Attacker_popup.setContent(fg_Active_Attacker_iframe);
-    Marker_Active_Attacker.bindPopup(fg_Active_Attacker_popup);
-    Marker_Active_Attacker.setIcon(fg_Active_Attacker_icon);
+    // Marker_Active_Attacker.bindPopup(fg_Active_Attacker_popup);
+    // Marker_Active_Attacker.setIcon(fg_Active_Attacker_icon);
     fg_Active_Attacker.addTo(folium_map);
     var fg_Bomb_Threat = L.featureGroup({});
-    var Marker_Bomb_Threat = L.marker([43.656339, -79.380909], {}).addTo(fg_Bomb_Threat);
+    // var Marker_Bomb_Threat = L.marker([43.656339, -79.380909], {}).addTo(fg_Bomb_Threat);
     var fg_Bomb_Threat_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "black",
@@ -93,11 +93,11 @@
     var fg_Bomb_Threat_popup = L.popup({"maxWidth": 250,});
     var fg_Bomb_Threat_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+Qm9tYiBUaHJlYXQ8L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Bomb_Threat_popup.setContent(fg_Bomb_Threat_iframe);
-    Marker_Bomb_Threat.bindPopup(fg_Bomb_Threat_popup);
-    Marker_Bomb_Threat.setIcon(fg_Bomb_Threat_icon);
+    // Marker_Bomb_Threat.bindPopup(fg_Bomb_Threat_popup);
+    // Marker_Bomb_Threat.setIcon(fg_Bomb_Threat_icon);
     fg_Bomb_Threat.addTo(folium_map);
     var fg_Fire_Explosion = L.featureGroup({});
-    var Marker_Fire_Explosion = L.marker([43.656339, -79.38], {}).addTo(fg_Fire_Explosion);
+    // var Marker_Fire_Explosion = L.marker([43.656339, -79.38], {}).addTo(fg_Fire_Explosion);
     var fg_Fire_Explosion_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "red",
@@ -110,11 +110,11 @@
     var fg_Fire_Explosion_popup = L.popup({"maxWidth": 250,});
     var fg_Fire_Explosion_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+RmlyZSBvciBFeHBsb3Npb248L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Fire_Explosion_popup.setContent(fg_Fire_Explosion_iframe);
-    Marker_Fire_Explosion.bindPopup(fg_Fire_Explosion_popup);
-    Marker_Fire_Explosion.setIcon(fg_Fire_Explosion_icon);
+    // Marker_Fire_Explosion.bindPopup(fg_Fire_Explosion_popup);
+    // Marker_Fire_Explosion.setIcon(fg_Fire_Explosion_icon);
     fg_Fire_Explosion.addTo(folium_map);
     var fg_Medical = L.featureGroup({});
-    var Marker_Medical = L.marker([43.655, -79.381909], {}).addTo(fg_Medical);
+    // var Marker_Medical = L.marker([43.655, -79.381909], {}).addTo(fg_Medical);
     var fg_Medical_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "green",
@@ -127,11 +127,11 @@
     var fg_Medical_popup = L.popup({"maxWidth": 250,});
     var fg_Medical_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+TWVkaWNhbCBFbWVyZ2VuY3k8L2gxPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Medical_popup.setContent(fg_Medical_iframe);
-    Marker_Medical.bindPopup(fg_Medical_popup);
-    Marker_Medical.setIcon(fg_Medical_icon);
+    // Marker_Medical.bindPopup(fg_Medical_popup);
+    // Marker_Medical.setIcon(fg_Medical_icon);
     fg_Medical.addTo(folium_map);
     var fg_Natural_Hazard = L.featureGroup({});
-    var Marker_Natural_Hazard = L.marker([43.655339, -79.381909], {}).addTo(fg_Natural_Hazard);
+    // var Marker_Natural_Hazard = L.marker([43.655339, -79.381909], {}).addTo(fg_Natural_Hazard);
     var fg_Natural_Hazard_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "darkgreen",
@@ -144,11 +144,11 @@
     var fg_Natural_Hazard_popup = L.popup({"maxWidth": 250,});
     var fg_Natural_Hazard_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+TmF0dXJhbCBIYXphcmQ8L2gyPgogICAgICAgIDxwPkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsCiAgICAgICAgc2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQgdXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWEuCiAgICAgICAgVXQgZW5pbSBhZCBtaW5pbSB2ZW5pYW0sIHF1aXMgbm9zdHJ1ZCBleGVyY2l0YXRpb24gdWxsYW1jbwogICAgICAgIGxhYm9yaXMgbmlzaSB1dCBhbGlxdWlwIGV4IGVhIGNvbW1vZG8gY29uc2VxdWF0LjwvcD4KICAgIA==" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Natural_Hazard_popup.setContent(fg_Natural_Hazard_iframe);
-    Marker_Natural_Hazard.bindPopup(fg_Natural_Hazard_popup);
-    Marker_Natural_Hazard.setIcon(fg_Natural_Hazard_icon);
+    // Marker_Natural_Hazard.bindPopup(fg_Natural_Hazard_popup);
+    // Marker_Natural_Hazard.setIcon(fg_Natural_Hazard_icon);
     fg_Natural_Hazard.addTo(folium_map);
     var fg_Suspicious_Package = L.featureGroup({});
-    var Marker_Suspicious_Package = L.marker([43.655339, -79.381], {}).addTo(fg_Suspicious_Package);
+    // var Marker_Suspicious_Package = L.marker([43.655339, -79.381], {}).addTo(fg_Suspicious_Package);
     var fg_Suspicious_Package_icon = L.AwesomeMarkers.icon(
         {
             "markerColor": "blue",
@@ -161,8 +161,8 @@
     var fg_Suspicious_Package_popup = L.popup({"maxWidth": 250,});
     var fg_Suspicious_Package_iframe = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8aDI+U3VzcGljaW91cyBQYWNrYWdlPC9oMj4KICAgICAgICA8cD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LAogICAgICAgIHNlZCBkbyBlaXVzbW9kIHRlbXBvciBpbmNpZGlkdW50IHV0IGxhYm9yZSBldCBkb2xvcmUgbWFnbmEgYWxpcXVhLgogICAgICAgIFV0IGVuaW0gYWQgbWluaW0gdmVuaWFtLCBxdWlzIG5vc3RydWQgZXhlcmNpdGF0aW9uIHVsbGFtY28KICAgICAgICBsYWJvcmlzIG5pc2kgdXQgYWxpcXVpcCBleCBlYSBjb21tb2RvIGNvbnNlcXVhdC48L3A+CiAgICA=" width="250" style="border:none !important;" height="150"></iframe>`)[0];
     fg_Suspicious_Package_popup.setContent(fg_Suspicious_Package_iframe);
-    Marker_Suspicious_Package.bindPopup(fg_Suspicious_Package_popup);
-    Marker_Suspicious_Package.setIcon(fg_Suspicious_Package_icon);
+    // Marker_Suspicious_Package.bindPopup(fg_Suspicious_Package_popup);
+    // Marker_Suspicious_Package.setIcon(fg_Suspicious_Package_icon);
     fg_Suspicious_Package.addTo(folium_map);
     var layer_control_layers = {
         base_layers : {
