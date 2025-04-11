@@ -268,21 +268,47 @@
     function Suspicious_Package() {
         type = 6;
     }
+
+ 
+
     function createMarker() {
-        console.log("Cords: " + lat + ", " + lng);
+        const timestamp = new Date().toLocaleString();
+        const selectedType = document.querySelector('input[name="Type"]:checked').value;
+        const notes = document.getElementById('notes').value;
+        const popupContent = `
+        <h4>${selectedType}</h4>
+        <p>${notes}</p>
+        <p><em>${timestamp}</em></p>
+        `;
+        
+
+        let icon;
+        let layer;
+
         if (type == 1) {
-            L.marker([lat, lng], {}).bindPopup(fg_Active_Attacker_popup).setIcon(fg_Active_Attacker_icon).addTo(fg_Active_Attacker);
-        } else if (type == 2) {
-            L.marker([lat, lng], {}).bindPopup(fg_Bomb_Threat_popup).setIcon(fg_Bomb_Threat_icon).addTo(fg_Bomb_Threat);
-        } else if (type == 3) {
-            L.marker([lat, lng], {}).bindPopup(fg_Fire_Explosion_popup).setIcon(fg_Fire_Explosion_icon).addTo(fg_Fire_Explosion);
-        } else if (type == 4) {
-            L.marker([lat, lng], {}).bindPopup(fg_Medical_popup).setIcon(fg_Medical_icon).addTo(fg_Medical);
-        } else if (type == 5) {
-            L.marker([lat, lng], {}).bindPopup(fg_Natural_Hazard_popup).setIcon(fg_Natural_Hazard_icon).addTo(fg_Natural_Hazard);
-        } else if (type == 6) {
-            L.marker([lat, lng], {}).bindPopup(fg_Suspicious_Package_popup).setIcon(fg_Suspicious_Package_icon).addTo(fg_Suspicious_Package);
-        }
+        icon = fg_Active_Attacker_icon;
+        layer = fg_Active_Attacker;
+    } else if (type == 2) {
+        icon = fg_Bomb_Threat_icon;
+        layer = fg_Bomb_Threat;
+    } else if (type == 3) {
+        icon = fg_Fire_Explosion_icon;
+        layer = fg_Fire_Explosion;
+    } else if (type == 4) {
+        icon = fg_Medical_icon;
+        layer = fg_Medical;
+    } else if (type == 5) {
+        icon = fg_Natural_Hazard_icon;
+        layer = fg_Natural_Hazard;
+    } else if (type == 6) {
+        icon = fg_Suspicious_Package_icon;
+        layer = fg_Suspicious_Package;
+    }
+
+    const marker = L.marker([lat, lng], { icon: icon })
+        .bindPopup(popupContent)
+        .addTo(layer);
+        
 
 
         fetch('/submit', {
@@ -292,7 +318,8 @@
                     type: selectedType,
                     notes: notes,
                     lat: lat,
-                    lng: lng
+                    lng: lng,
+                    timestamp: timestamp
                 })
             });
     }

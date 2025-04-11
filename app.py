@@ -75,20 +75,52 @@ def map():
     else:
         return render_template('/userMap.html')
     
+def get_next_report_id():
+    try:
+        with open('reports.txt', 'r') as f:
+            return sum(1 for _ in f) + 1  # count lines in the file
+    except FileNotFoundError:
+        return 1  # first report if file doesn't exist yet
+    
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.get_json()
-    report_id = get_next_report_id()
-    data['report_id'] = report_id
-    print(f"[{data.get('timestamp')}] {data.get('type')} at ({data.get('lat')}, {data.get('lng')}): {data.get('notes')}")
+    try:
+        # 🔍 Step 1: Force Flask to parse JSON
+        data = request.get_json(force=True)
+        print(" Received data from frontend:")
+        print(data)
 
-    # Append the data as a JSON line to the text file
-    with open('reports.txt', 'a') as f:
-        f.write(json.dumps(data) + '\n')
+        # 🔍 Step 2: Validate required fields
+        for field in ['type', 'notes', 'lat', 'lng']:
+            if field not in data:
+                raise Exception(f"Missing field: {field}")
 
-    return jsonify({"message": "Report Saved "}), 200
-    
+        # 🔍 Step 3: Assign report_id and timestamp
+        report_id = get_next_report_id()
+        timestamp = data.get('timestamp') or datetime.now().isoformat()
+
+        # 🔍 Step 4: Construct final report object
+        report = {
+            "report_id": report_id,
+            "type": data['type'],
+            "notes": data['notes'],
+            "lat": float(data['lat']),
+            "lng": float(data['lng']),
+            "timestamp": timestamp
+        }
+
+        print(f" Writing to file: {report}")
+
+        with open('reports.txt', 'a') as f:
+            f.write(json.dumps(report) + '\n')
+
+        return jsonify({"message": f"Saved report #{report_id}"}), 200
+
+    except Exception as e:
+        print("ERROR in /submit:", e)
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/admin.html', methods = ['POST','GET'])
 def admin():
     if request.method == 'POST':
