@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
+from flask import Flask, render_template, url_for, request, flash, redirect, jsonify
 import json
 from datetime import datetime
 
@@ -86,6 +86,8 @@ def submit():
     # Append the data as a JSON line to the text file
     with open('reports.txt', 'a') as f:
         f.write(json.dumps(data) + '\n')
+
+    return jsonify({"message": "Report Saved "}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
