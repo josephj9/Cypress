@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .admin-header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .content-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 50px);
+        }
+        .map-container {
+            flex: 1;
+            height: 100%;
+        }
+        .marker-list {
+            width: 300px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .marker-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .marker-info {
+            flex: 1;
+        }
+        .remove-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+        .marker-type {
+            font-weight: bold;
+        }
+        .marker-coordinates {
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    <div class="content-container">
+        <div class="map-container">
+            {% include 'Map.html' %}
+        </div>
+        <div class="marker-list">
+            <h3>Active Markers</h3>
+            <div id="markerListContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get reference to the map after it's loaded
+            const map = folium_map;
+            const markerListContainer = document.getElementById('markerListContainer');
+            let markerRegistry = new Map(); // To keep track of markers and their IDs
+
+            // Function to generate a unique ID
+            function generateUniqueId() {
+                return Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            }
+
+            // Function to update the marker list
+            function updateMarkerList() {
+                markerListContainer.innerHTML = '';
+                markerRegistry.forEach((markerInfo, markerId) => {
+                    const markerItem = document.createElement('div');
+                    markerItem.className = 'marker-item';
+                    markerItem.innerHTML = `
+                        <div class="marker-info">
+                            <div class="marker-type">${markerInfo.type}</div>
+                            <div class="marker-coordinates">
+                                Lat: ${markerInfo.lat.toFixed(4)}, Lng: ${markerInfo.lng.toFixed(4)}
+                            </div>
+                        </div>
+                        <button class="remove-btn" data-marker-id="${markerId}">Remove</button>
+                    `;
+                    markerListContainer.appendChild(markerItem);
+                });
+                
+                // Add click handlers for remove buttons
+                document.querySelectorAll('.remove-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const markerId = this.getAttribute('data-marker-id');
+                        const markerInfo = markerRegistry.get(markerId);
+                        if (markerInfo) {
+                            markerInfo.featureGroup.removeLayer(markerInfo.marker);
+                            markerRegistry.delete(markerId);
+                            updateMarkerList();
+                        }
+                    });
+                });
+            }
+
+            // Override the createMarker function to track markers
+            const originalCreateMarker = window.createMarker;
+            window.createMarker = function() {
+                const prevMarkerCount = markerRegistry.size;
+                
+                // Call the original createMarker function
+                originalCreateMarker();
+                
+                // Find the newly added marker
+                let newMarker;
+                let markerType;
+                let featureGroup;
+
+                if (type === 1) {
+                    featureGroup = fg_Active_Attacker;
+                    markerType = "Active Attacker";
+                } else if (type === 2) {
+                    featureGroup = fg_Bomb_Threat;
+                    markerType = "Bomb Threat";
+                } else if (type === 3) {
+                    featureGroup = fg_Fire_Explosion;
+                    markerType = "Fire or Explosion";
+                } else if (type === 4) {
+                    featureGroup = fg_Medical;
+                    markerType = "Medical Emergency";
+                } else if (type === 5) {
+                    featureGroup = fg_Natural_Hazard;
+                    markerType = "Natural Hazard";
+                } else if (type === 6) {
+                    featureGroup = fg_Suspicious_Package;
+                    markerType = "Suspicious Package";
+                }
+
+                featureGroup.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        const markerId = generateUniqueId();
+                        markerRegistry.set(markerId, {
+                            marker: layer,
+                            type: markerType,
+                            lat: lat,
+                            lng: lng,
+                            featureGroup: featureGroup
+                        });
+                    }
+                });
+
+                // Update the marker list
+                updateMarkerList();
+            };
+
+            // Initialize marker list with any existing markers
+            const featureGroups = [
+                {group: fg_Active_Attacker, type: "Active Attacker"},
+                {group: fg_Bomb_Threat, type: "Bomb Threat"},
+                {group: fg_Fire_Explosion, type: "Fire or Explosion"},
+                {group: fg_Medical, type: "Medical Emergency"},
+                {group: fg_Natural_Hazard, type: "Natural Hazard"},
+                {group: fg_Suspicious_Package, type: "Suspicious Package"}
+            ];
+
+            featureGroups.forEach(({group, type}) => {
+                group.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        const markerId = generateUniqueId();
+                        const latlng = layer.getLatLng();
+                        markerRegistry.set(markerId, {
+                            marker: layer,
+                            type: type,
+                            lat: latlng.lat,
+                            lng: latlng.lng,
+                            featureGroup: group
+                        });
+                    }
+                });
+            });
+
+            // Initial update of marker list
+            updateMarkerList();
+        });
+    </script>
+</body>
+</html>
